@@ -57,6 +57,7 @@ function displayEmployees(data) {
 function displayModal(index){
     const { name: { first, last }, dob, phone, email, location: { street, city, state, postcode }, picture: { large } } = employees[index]; 
     const date = new Date(dob.date); // creates a new date object so we can call proper functions
+    const formattedDate = dateFormat(date.getMonth()+1, date.getDate(), date.getFullYear());
 
     const modalHTML = 
     `
@@ -71,7 +72,7 @@ function displayModal(index){
                 <hr>
                 <p class="modal-text">${phone}</p>
                 <p class="modal-text">${street.name}, ${city}, ${state} ${postcode}</p>
-                <p class="modal-text">Birthday: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+                <p class="modal-text">Birthday: ${formattedDate}</p>
             </div>
         </div>
 
@@ -85,10 +86,22 @@ function displayModal(index){
     body.insertAdjacentHTML("beforeend",modalHTML); // insertAdjacentHTML is more efficient than innerHTML += 
 }
 
+function leadZero(num, length) {
+    let dateString = num.toString();
+    if (dateString.length < length) { dateString = "0" + dateString};
+    return dateString;
+}
+
+function dateFormat( month, day, year ) {
+    let format = leadZero( month , 2 ) + "/" + leadZero( day, 2 ) + "/" + year.toString();
+    return format;
+}
+
 function updateModal(index) {
     const { name: { first, last }, dob, phone, email, location: { street, city, state, postcode }, picture: { large } } = employees[index]; 
     const info = document.querySelector(".modal-info-container");
     const date = new Date(dob.date);
+    const formattedDate = dateFormat(date.getMonth()+1, date.getDate(), date.getFullYear());
 
     info.innerHTML = 
     `
@@ -99,7 +112,7 @@ function updateModal(index) {
         <hr>
         <p class="modal-text">${phone}</p>
         <p class="modal-text">${street.name}, ${city}, ${state} ${postcode}</p>
-        <p class="modal-text">Birthday: ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+        <p class="modal-text">Birthday: ${formattedDate}</p>
     `;
 }
 
