@@ -1,1 +1,2 @@
 Using fetch to connect to a 3rd party API to retrieve random users.
+Adjusted many colors to make a mock "darkmode". Changed the background color of the webpage and the modal. Changed card text to white and name text to pink.
